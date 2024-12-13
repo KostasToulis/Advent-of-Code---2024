@@ -26,7 +26,7 @@ class Character:
     def update_neighbors(self):
         self.cardinal_neighbors = [self.N, self.E, self.S, self.W]
         self.neighbors = [self.N, self.NE, self.E, self.SE, self.S, self.SW, self.W, self.NW]
-        for neighbor in self.neighbors:
+        for neighbor in self.cardinal_neighbors:
             if neighbor is not None and neighbor.id == self.id: self.same_neighbors.append(neighbor)
 
     def update_edges(self):
@@ -72,7 +72,7 @@ def connect_same(character):
 
 
 
-with open('demo.txt', 'r') as file:
+with open('input.txt', 'r') as file:
     lines = file.readlines()
 
 
@@ -128,9 +128,13 @@ for character in characters:
 
 
 total_cost = 0
+total_chars = 0
 for region in regions:
     total_cost += region.cost
+    total_chars += len(region.characters)
     print(f'{region.id} {region.area} {region.perimeter} {region.cost}')
+
+# not_regioned = [c for c in characters if c.region is None]
 
 print(total_cost)
 
